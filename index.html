@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video AI - Generador Narrativo</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://js.puter.com/v2/"></script> <!-- Activador IA sin clave -->
 </head>
 <body>
 
   <h1>🎬 Generador de Video AI: Edición Narrativa</h1>
 
+  <!-- ⚙️ Campos de configuración -->
   <div class="grid-two-cols">
     <div class="section">
       <label>🧠 Tema del video</label>
@@ -72,6 +72,7 @@
     </div>
   </div>
 
+  <!-- 📁 Archivos opcionales -->
   <div class="section">
     <label>📁 Archivos de referencia (opcional)</label>
     <input type="file" id="archivoReferencia" multiple accept=".pdf,.doc,.docx,.txt,.md" />
@@ -83,6 +84,7 @@
 
   <div id="resultado" class="output"></div>
 
+  <!-- 🌐 Selector de IAs -->
   <div class="section">
     <h3>🌐 ¿Con qué IA deseas generar el guion?</h3>
     <form id="selectorIA">
@@ -93,28 +95,35 @@
     <button onclick="generarGuionesMultiples()">🧠 Generar Guiones con IA seleccionadas</button>
   </div>
 
+  <!-- 📤 Salida de guiones IA -->
   <div id="guionClaude" class="output"></div>
   <div id="guionGemini" class="output"></div>
   <div id="guionGPT" class="output"></div>
 
+  <!-- 📝 Guion principal seleccionado -->
   <div id="guionNarrativo" class="output"></div>
 
+  <!-- ✏️ Edición -->
   <div class="section">
     <button onclick="editarGuion()">✏️ Editar Guion por Secciones</button>
   </div>
 
   <div id="editorGuion" class="output"></div>
 
+  <!-- 🎥 Simulación de escenas -->
   <div class="section">
     <button onclick="mostrarEscenas()">🎥 Simular Escenas Visuales</button>
   </div>
 
   <div id="escenasVisuales" class="output"></div>
 
+  <!-- 📤 Exportar -->
   <div class="section">
     <button onclick="exportarGuion()">📤 Exportar Guion como TXT</button>
   </div>
 
+  <!-- 🔗 Scripts -->
+  <script src="https://js.puter.com/v2/"></script> <!-- CORRECTO: cargado después -->
   <script src="script.js"></script>
   <script src="editor.js"></script>
   <script src="config.js"></script>
