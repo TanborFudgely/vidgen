@@ -4,62 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video AI - Generador Narrativo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-      max-width: 900px;
-      margin: auto;
-      padding: 2em;
-    }
-    h1 {
-      color: #3cefff;
-      font-size: 1.8em;
-    }
-    .section {
-      margin-bottom: 2em;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 0.5em;
-    }
-    input[type="text"], select, textarea {
-      width: 100%;
-      padding: 1em;
-      background: #222;
-      border: 1px solid #555;
-      color: #eee;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    input[type="file"] {
-      margin-top: 0.5em;
-      background: #222;
-      color: #eee;
-    }
-    button {
-      background: #3cefff;
-      color: #111;
-      padding: 0.8em 2em;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .output {
-      background: #222;
-      padding: 1em;
-      border-radius: 5px;
-      margin-top: 1em;
-      white-space: pre-wrap;
-    }
-    small {
-      color: #aaa;
-      font-size: 0.9em;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -138,36 +83,6 @@
 
   <div id="resultado" class="output"></div>
 
-  <script>
-    function generarResumen() {
-      const tema = document.getElementById('tema').value;
-      const estilo = document.getElementById('estilo').value;
-      const narracion = document.getElementById('narracion').value;
-      const idioma = document.getElementById('idioma').value;
-      const duracion = document.getElementById('duracion').value;
-      const tono = document.getElementById('tono').value;
-      const archivos = document.getElementById('archivoReferencia').files;
-
-      let resumen = `🎬 PROYECTO DE VIDEO IA\n\n`;
-      resumen += `🧠 Tema: ${tema}\n`;
-      resumen += `🎨 Estilo visual: ${estilo}\n`;
-      resumen += `🎙️ Narración: ${narracion}\n`;
-      resumen += `🌐 Idioma: ${idioma}\n`;
-      resumen += `⏱️ Duración estimada: ${duracion}\n`;
-      resumen += `🧠 Tono narrativo: ${tono}\n`;
-
-      if (archivos.length > 0) {
-        resumen += `📁 Archivos adjuntos: ${archivos.length} archivo(s)\n`;
-        for (let i = 0; i < archivos.length; i++) {
-          resumen += `   - ${archivos[i].name}\n`;
-        }
-        resumen += `ℹ️ Tus archivos serán considerados como fuente complementaria.`;
-      } else {
-        resumen += `📁 No se adjuntaron archivos de referencia.`;
-      }
-
-      document.getElementById('resultado').innerText = resumen;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
