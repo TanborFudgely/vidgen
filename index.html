@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video AI - Proyecto Kuiper</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2em; background: #111; color: #eee; max-width: 800px; margin: auto; }
+    h1 { color: #3cefff; }
+    .section { margin-bottom: 2em; }
+    textarea, input[type="text"] { width: 100%; padding: 1em; background: #222; border: 1px solid #555; color: #eee; border-radius: 5px; }
+    button { background: #3cefff; color: #111; padding: 0.8em 2em; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .output { background: #222; padding: 1em; border-radius: 5px; margin-top: 1em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🎬 Generador de Video IA: Proyecto Kuiper</h1>
+
+  <div class="section">
+    <label>🧠 ¿Cuál es el tema de tu video?</label>
+    <input type="text" id="tema" placeholder="Ej: El cinturón de Kuiper" />
+  </div>
+
+  <div class="section">
+    <label>🎨 ¿Qué estilo visual quieres?</label>
+    <input type="text" id="estilo" placeholder="Ej: Realista, Pixar, Anime, Abstracto..." />
+  </div>
+
+  <div class="section">
+    <label>⏱️ ¿Qué duración estimada tendrá?</label>
+    <input type="text" id="duracion" placeholder="Ej: 5 minutos" />
+  </div>
+
+  <div class="section">
+    <label>🎙️ ¿Quieres narración y texto en pantalla?</label>
+    <input type="text" id="narracion" placeholder="Ej: Sí, voz en off con subtítulos estáticos" />
+  </div>
+
+  <button onclick="generarPrompt()">✅ Preparar guion para revisión</button>
+
+  <div id="resultado" class="output"></div>
+
+  <script>
+    function generarPrompt() {
+      const tema = document.getElementById('tema').value;
+      const estilo = document.getElementById('estilo').value;
+      const duracion = document.getElementById('duracion').value;
+      const narracion = document.getElementById('narracion').value;
+
+      let salida = `🎬 Proyecto de video IA\n\n`;
+      salida += `🧠 Tema: ${tema}\n`;
+      salida += `🎨 Estilo visual: ${estilo}\n`;
+      salida += `⏱️ Duración estimada: ${duracion}\n`;
+      salida += `🎙️ Narración y texto: ${narracion}\n`;
+      salida += `📦 Preparando escenas y guion narrativo...`;
+
+      document.getElementById('resultado').innerText = salida;
+    }
+  </script>
+</body>
+</html>
