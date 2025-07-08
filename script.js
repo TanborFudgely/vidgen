@@ -52,4 +52,18 @@ function generarGuion() {
   guion += `🔹 Archivos de referencia:\n`;
   if (archivos.length > 0) {
     guion += `Se utilizarán como fuentes complementarias ${archivos.length} documento(s):\n`;
-    for (let i
+    for (let i = 0; i < archivos.length; i++) {
+      guion += `   - ${archivos[i].name}\n`;
+    }
+    guion += `Serán consultados junto con fuentes adicionales. Si hay contradicción, se priorizará tu contenido.\n\n`;
+  } else {
+    guion += `No se adjuntaron archivos personalizados. El guion se basará en fuentes generales y tus parámetros.\n\n`;
+  }
+
+  guion += `🔹 Cierre:\n`;
+  guion += `Una conclusión visualmente impactante que resume el mensaje principal del video y deja al espectador reflexionando sobre "${tema}".\n\n`;
+
+  guion += `✅ Puedes revisar este guion antes de aprobarlo para la generación automática del video.`;
+
+  document.getElementById('guionNarrativo').innerText = guion;
+}
