@@ -28,5 +28,5 @@ function mostrarEscenas() {
   });
   html += "</ul>";
 
-  document.getElementById('editorGuion').innerHTML = html;
+  document.getElementById('escenasVisuales').innerHTML = html;
 }
