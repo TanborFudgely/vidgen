@@ -5,76 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Video AI - Generador Narrativo</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://js.puter.com/v2/"></script> <!-- Activador IA sin clave -->
 </head>
 <body>
 
   <h1>🎬 Generador de Video AI: Edición Narrativa</h1>
 
-  <div class="section">
-    <label>🧠 ¿Cuál es el tema de tu video?</label>
-    <input type="text" id="tema" placeholder="Ej: El cinturón de Kuiper" />
-  </div>
+  <div class="grid-two-cols">
+    <div class="section">
+      <label>🧠 Tema del video</label>
+      <input type="text" id="tema" placeholder="Ej: El cinturón de Kuiper" />
+    </div>
 
-  <div class="section">
-    <label>🎨 Estilo visual</label>
-    <select id="estilo">
-      <option value="Realista">Realista</option>
-      <option value="Anime">Anime</option>
-      <option value="Pixar">Pixar</option>
-      <option value="Disney">Disney</option>
-      <option value="Abstracto">Abstracto</option>
-      <option value="CGI">CGI</option>
-    </select>
-  </div>
+    <div class="section">
+      <label>🎨 Estilo visual</label>
+      <select id="estilo">
+        <option value="Realista">Realista</option>
+        <option value="Anime">Anime</option>
+        <option value="Pixar">Pixar</option>
+        <option value="Disney">Disney</option>
+        <option value="Abstracto">Abstracto</option>
+        <option value="CGI">CGI</option>
+      </select>
+    </div>
 
-  <div class="section">
-    <label>🎙️ Narración</label>
-    <select id="narracion">
-      <option value="Voz en off + texto estático">Voz en off + texto estático</option>
-      <option value="Solo música de fondo">Solo música de fondo</option>
-      <option value="Narrador con acento">Narrador con acento</option>
-      <option value="Sin audio">Sin audio</option>
-    </select>
-  </div>
+    <div class="section">
+      <label>🎙️ Narración</label>
+      <select id="narracion">
+        <option value="Voz en off + texto estático">Voz en off + texto estático</option>
+        <option value="Solo música de fondo">Solo música de fondo</option>
+        <option value="Narrador con acento">Narrador con acento</option>
+        <option value="Sin audio">Sin audio</option>
+      </select>
+    </div>
 
-  <div class="section">
-    <label>🌐 Idioma</label>
-    <select id="idioma">
-      <option value="Español neutro">Español neutro</option>
-      <option value="Inglés americano">Inglés americano</option>
-      <option value="Inglés británico">Inglés británico</option>
-      <option value="Portugués">Portugués</option>
-      <option value="Francés">Francés</option>
-    </select>
-  </div>
+    <div class="section">
+      <label>🌐 Idioma</label>
+      <select id="idioma">
+        <option value="Español neutro">Español neutro</option>
+        <option value="Inglés americano">Inglés americano</option>
+        <option value="Inglés británico">Inglés británico</option>
+        <option value="Portugués">Portugués</option>
+        <option value="Francés">Francés</option>
+      </select>
+    </div>
 
-  <div class="section">
-    <label>⏱️ Duración estimada</label>
-    <select id="duracion">
-      <option value="1 minuto">1 minuto</option>
-      <option value="3 minutos">3 minutos</option>
-      <option value="5 minutos">5 minutos</option>
-      <option value="10 minutos">10 minutos</option>
-    </select>
-  </div>
+    <div class="section">
+      <label>⏱️ Duración</label>
+      <select id="duracion">
+        <option value="1 minuto">1 minuto</option>
+        <option value="3 minutos">3 minutos</option>
+        <option value="5 minutos">5 minutos</option>
+        <option value="10 minutos">10 minutos</option>
+      </select>
+    </div>
 
-  <div class="section">
-    <label>🧠 Tono narrativo</label>
-    <select id="tono">
-      <option value="Divulgativo">Divulgativo</option>
-      <option value="Técnico">Técnico</option>
-      <option value="Poético">Poético</option>
-      <option value="Inspirador">Inspirador</option>
-      <option value="Educativo">Educativo</option>
-    </select>
+    <div class="section">
+      <label>🧠 Tono narrativo</label>
+      <select id="tono">
+        <option value="Divulgativo">Divulgativo</option>
+        <option value="Técnico">Técnico</option>
+        <option value="Poético">Poético</option>
+        <option value="Inspirador">Inspirador</option>
+        <option value="Educativo">Educativo</option>
+      </select>
+    </div>
   </div>
 
   <div class="section">
     <label>📁 Archivos de referencia (opcional)</label>
     <input type="file" id="archivoReferencia" multiple accept=".pdf,.doc,.docx,.txt,.md" />
-    <small>
-      Puedes subir documentos como referencia. Yo combinaré esta información con mis fuentes. Si hay contradicción, priorizaré la tuya o te consultaré primero.
-    </small>
   </div>
 
   <div class="section">
@@ -84,8 +84,18 @@
   <div id="resultado" class="output"></div>
 
   <div class="section">
-    <button onclick="generarGuion()">📝 Generar Guion Narrativo</button>
+    <h3>🌐 ¿Con qué IA deseas generar el guion?</h3>
+    <form id="selectorIA">
+      <label><input type="checkbox" value="claude-3-5-sonnet" checked> Claude 3.5 Sonnet</label><br>
+      <label><input type="checkbox" value="gemini-pro-1.5"> Gemini Pro 1.5</label><br>
+      <label><input type="checkbox" value="gpt-4o"> GPT-4o</label><br>
+    </form>
+    <button onclick="generarGuionesMultiples()">🧠 Generar Guiones con IA seleccionadas</button>
   </div>
+
+  <div id="guionClaude" class="output"></div>
+  <div id="guionGemini" class="output"></div>
+  <div id="guionGPT" class="output"></div>
 
   <div id="guionNarrativo" class="output"></div>
 
@@ -109,5 +119,6 @@
   <script src="editor.js"></script>
   <script src="config.js"></script>
   <script src="scenes.js"></script>
+  <script src="ai.js"></script>
 </body>
 </html>

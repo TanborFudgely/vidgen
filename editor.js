@@ -1,44 +1,31 @@
-function editarGuion() {
-  const guionTexto = document.getElementById('guionNarrativo').innerText;
-
-  if (!guionTexto.includes('📝 GUIÓN NARRATIVO AUTOMÁTICO')) {
-    alert('Genera primero el guion narrativo antes de editar.');
+function editarGuionDesdeTexto(textoIA) {
+  if (!textoIA || !textoIA.includes("GUIÓN")) {
+    alert("El texto no parece ser un guion válido.");
     return;
   }
 
-  const secciones = ['🔹 Apertura:', '🔹 Desarrollo:', '🔹 Archivos de referencia:', '🔹 Cierre:'];
-  let bloques = {};
-  secciones.forEach((seccion, i) => {
-    const inicio = guionTexto.indexOf(seccion);
-    const fin = i < secciones.length - 1
-      ? guionTexto.indexOf(secciones[i + 1])
-      : guionTexto.length;
-    bloques[seccion] = guionTexto.slice(inicio, fin).trim();
-  });
-
-  let editorHTML = `<h3>✏️ Edición por bloques</h3>`;
-  Object.keys(bloques).forEach((key, index) => {
+  const partes = textoIA.split(/\n\n|🔹 /).filter(p => p.trim());
+  let editorHTML = `<h3>✏️ Edición por bloques desde IA seleccionada</h3>`;
+  partes.forEach((bloque, index) => {
     editorHTML += `
       <div class="section">
-        <label>${key}</label>
-        <textarea id="bloque_${index}" rows="5">${bloques[key]}</textarea>
+        <label>Bloque ${index + 1}</label>
+        <textarea id="bloqueIA_${index}" rows="5">${bloque}</textarea>
       </div>
     `;
   });
 
-  editorHTML += `<button onclick="guardarEdicion()">💾 Guardar cambios</button>`;
-
+  editorHTML += `<button onclick="guardarGuionSeleccionado()">💾 Guardar este guion como principal</button>`;
   document.getElementById('editorGuion').innerHTML = editorHTML;
 }
 
-function guardarEdicion() {
-  const bloques = document.querySelectorAll('[id^="bloque_"]');
-  let nuevoGuion = '📝 GUIÓN NARRATIVO AUTOMÁTICO\n\n';
-
+function guardarGuionSeleccionado() {
+  const bloques = document.querySelectorAll('[id^="bloqueIA_"]');
+  let nuevoGuion = '📝 GUIÓN NARRATIVO PERSONALIZADO\n\n';
   bloques.forEach(b => {
     nuevoGuion += b.value.trim() + '\n\n';
   });
 
   document.getElementById('guionNarrativo').innerText = nuevoGuion;
-  document.getElementById('editorGuion').innerHTML = '✅ Cambios guardados.';
+  document.getElementById('editorGuion').innerHTML = '✅ Guion seleccionado y editado guardado.';
 }

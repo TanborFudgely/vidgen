@@ -7,9 +7,9 @@ function generarEscenas(tema, estilo, duracion) {
   for (let i = 1; i <= totalEscenas; i++) {
     escenas.push({
       escena: i,
-      descripcion: `Escena ${i}: Visual ${estilo} explorando "${tema}" con transición suave.`,
+      descripcion: `Escena ${i}: Visual estilo ${estilo}, explorando "${tema}" con transición creativa.`,
       duracion: `${(60 / totalEscenas).toFixed(0)} segundos`,
-      elementos: ["Texto en pantalla", "Música de fondo", "Narración"]
+      elementos: ["Texto en pantalla", "Narración", "Música"]
     });
   }
 

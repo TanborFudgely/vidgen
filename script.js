@@ -25,7 +25,6 @@ function generarResumen() {
     for (let i = 0; i < archivos.length; i++) {
       resumen += `   - ${archivos[i].name}\n`;
     }
-    resumen += `ℹ️ Tus archivos serán considerados como fuente complementaria.`;
   } else {
     resumen += `📁 No se adjuntaron archivos de referencia.`;
   }
@@ -33,69 +32,49 @@ function generarResumen() {
   document.getElementById('resultado').innerText = resumen;
 }
 
-function generarGuion() {
-  const tema = document.getElementById('tema').value;
-  const estilo = document.getElementById('estilo').value;
-  const narracion = document.getElementById('narracion').value;
-  const idioma = document.getElementById('idioma').value;
-  const duracion = document.getElementById('duracion').value;
-  const tono = document.getElementById('tono').value;
-  const archivos = document.getElementById('archivoReferencia').files;
-
-  if (!tema.trim()) {
-    alert("Por favor, ingresa un tema válido para generar el guion.");
+function exportarGuion() {
+  const contenido = document.getElementById('guionNarrativo').innerText;
+  if (!contenido.trim()) {
+    alert("Primero debes generar el guion antes de exportarlo.");
     return;
   }
 
-  let guion = `📝 GUIÓN NARRATIVO AUTOMÁTICO\n\n`;
-  guion += `🎬 Título: ${tema}\n`;
-  guion += `🎨 Estilo visual: ${estilo} | 🧠 Tono: ${tono}\n`;
-  guion += `🎙️ Narración: ${narracion} | 🌐 Idioma: ${idioma}\n`;
-  guion += `⏱️ Duración estimada: ${duracion}\n\n`;
-
-  guion += `🔹 Apertura:\n`;
-  guion += `Introducción al universo de "${tema}" con estilo ${estilo.toLowerCase()} y tono ${tono.toLowerCase()}.\n\n`;
-
-  guion += `🔹 Desarrollo:\n`;
-  guion += `Escenas narradas con ritmo ${duracion}, acompañadas por ${narracion.toLowerCase()} en ${idioma}.\n\n`;
-
-  guion += `🔹 Archivos de referencia:\n`;
-  if (archivos.length > 0) {
-    guion += `Usando ${archivos.length} documento(s) como fuente adicional:\n`;
-    for (let i = 0; i < archivos.length; i++) {
-      guion += `   - ${archivos[i].name}\n`;
-    }
-    guion += `Serán interpretados junto con fuentes generales. Si hay contradicción, se prioriza tu contenido.\n\n`;
-  } else {
-    guion += `No se adjuntaron documentos. Se usarán fuentes generales y los parámetros seleccionados.\n\n`;
-  }
-
-  guion += `🔹 Cierre:\n`;
-  guion += `Conclusión visualmente impactante que resume el mensaje principal y deja una reflexión sobre "${tema}".\n\n`;
-
-  guion += `✅ Puedes revisar este guion antes de aprobarlo para generación automática del video.`;
-
-  document.getElementById('guionNarrativo').innerText = guion;
+  const blob = new Blob([contenido], { type: "text/plain;charset=utf-8" });
+  const enlace = document.createElement("a");
+  enlace.href = URL.createObjectURL(blob);
+  enlace.download = "guion-narrativo.txt";
+  enlace.click();
 }
 
-// ✨ Futuro: conexión con IA generadora
-async function obtenerGuionDesdeIA(params) {
-  try {
-    const response = await fetch("https://api.tu-ia-narrativa.com/generar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer TU_API_KEY"
-      },
-      body: JSON.stringify(params)
-    });
-    const data = await response.json();
-    document.getElementById('guionNarrativo').innerText = data.guion;
-  } catch (error) {
-    alert("Error al conectar con IA externa. Verifica tu clave y conexión.");
+function editarGuion() {
+  const guionTexto = document.getElementById('guionNarrativo').innerText;
+  if (!guionTexto.includes("GUIÓN")) {
+    alert("Primero debes seleccionar un guion antes de editar.");
+    return;
   }
+
+  const partes = guionTexto.split(/\n\n|🔹 /).filter(p => p.trim());
+  let editorHTML = `<h3>✏️ Edición por bloques</h3>`;
+  partes.forEach((bloque, index) => {
+    editorHTML += `
+      <div class="section">
+        <label>Bloque ${index + 1}</label>
+        <textarea id="bloque_${index}" rows="5">${bloque}</textarea>
+      </div>
+    `;
+  });
+
+  editorHTML += `<button onclick="guardarEdicion()">💾 Guardar cambios</button>`;
+  document.getElementById('editorGuion').innerHTML = editorHTML;
 }
 
-// 📤 Exportar guion como archivo TXT
-function exportarGuion() {
-  const contenido = document
+function guardarEdicion() {
+  const bloques = document.querySelectorAll('[id^="bloque_"]');
+  let nuevoGuion = '📝 GUIÓN NARRATIVO PERSONALIZADO\n\n';
+  bloques.forEach(b => {
+    nuevoGuion += b.value.trim() + '\n\n';
+  });
+
+  document.getElementById('guionNarrativo').innerText = nuevoGuion;
+  document.getElementById('editorGuion').innerHTML = '✅ Cambios guardados.';
+}
