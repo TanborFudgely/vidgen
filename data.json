@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "tema": "El cinturón de Kuiper",
+    "estilo": "CGI",
+    "narracion": "Voz en off + texto estático",
+    "idioma": "Español neutro",
+    "duracion": "5 minutos",
+    "tono": "Educativo",
+    "fecha": "2025-07-08T10:25:00Z",
+    "archivosReferencia": ["kuiper_ref.docx"]
+  }
+]

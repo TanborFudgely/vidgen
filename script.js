@@ -44,26 +44,26 @@ function generarGuion() {
   guion += `⏱️ Duración estimada: ${duracion}\n\n`;
 
   guion += `🔹 Apertura:\n`;
-  guion += `Una introducción envolvente sitúa al espectador dentro del universo de "${tema}", con visuales ${estilo.toLowerCase()} y tono ${tono.toLowerCase()}.\n\n`;
+  guion += `Introducción al universo de "${tema}" con estilo ${estilo.toLowerCase()} y tono ${tono.toLowerCase()}.\n\n`;
 
   guion += `🔹 Desarrollo:\n`;
-  guion += `Secuencia de escenas que exploran el tema en profundidad, utilizando elementos narrativos adaptados al estilo "${estilo}" con ${narracion.toLowerCase()} en ${idioma}.\n\n`;
+  guion += `Escenas narradas con ritmo ${duracion}, acompañadas por ${narracion.toLowerCase()} en ${idioma}.\n\n`;
 
   guion += `🔹 Archivos de referencia:\n`;
   if (archivos.length > 0) {
-    guion += `Se utilizarán como fuentes complementarias ${archivos.length} documento(s):\n`;
+    guion += `Usando ${archivos.length} documento(s) como fuente adicional:\n`;
     for (let i = 0; i < archivos.length; i++) {
       guion += `   - ${archivos[i].name}\n`;
     }
-    guion += `Serán consultados junto con fuentes adicionales. Si hay contradicción, se priorizará tu contenido.\n\n`;
+    guion += `Serán interpretados junto con fuentes generales. Si hay contradicción, se prioriza tu contenido.\n\n`;
   } else {
-    guion += `No se adjuntaron archivos personalizados. El guion se basará en fuentes generales y tus parámetros.\n\n`;
+    guion += `No se adjuntaron documentos. Se usarán fuentes generales y los parámetros seleccionados.\n\n`;
   }
 
   guion += `🔹 Cierre:\n`;
-  guion += `Una conclusión visualmente impactante que resume el mensaje principal del video y deja al espectador reflexionando sobre "${tema}".\n\n`;
+  guion += `Conclusión visualmente impactante que resume el mensaje principal y deja una reflexión sobre "${tema}".\n\n`;
 
-  guion += `✅ Puedes revisar este guion antes de aprobarlo para la generación automática del video.`;
+  guion += `✅ Puedes revisar este guion antes de aprobarlo para generación automática del video.`;
 
   document.getElementById('guionNarrativo').innerText = guion;
 }
