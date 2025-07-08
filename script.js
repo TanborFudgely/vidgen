@@ -7,6 +7,11 @@ function generarResumen() {
   const tono = document.getElementById('tono').value;
   const archivos = document.getElementById('archivoReferencia').files;
 
+  if (!tema.trim()) {
+    alert("Por favor, completa el tema del video antes de continuar.");
+    return;
+  }
+
   let resumen = `🎬 PROYECTO DE VIDEO IA\n\n`;
   resumen += `🧠 Tema: ${tema}\n`;
   resumen += `🎨 Estilo visual: ${estilo}\n`;
@@ -36,6 +41,11 @@ function generarGuion() {
   const duracion = document.getElementById('duracion').value;
   const tono = document.getElementById('tono').value;
   const archivos = document.getElementById('archivoReferencia').files;
+
+  if (!tema.trim()) {
+    alert("Por favor, ingresa un tema válido para generar el guion.");
+    return;
+  }
 
   let guion = `📝 GUIÓN NARRATIVO AUTOMÁTICO\n\n`;
   guion += `🎬 Título: ${tema}\n`;
@@ -67,3 +77,25 @@ function generarGuion() {
 
   document.getElementById('guionNarrativo').innerText = guion;
 }
+
+// ✨ Futuro: conexión con IA generadora
+async function obtenerGuionDesdeIA(params) {
+  try {
+    const response = await fetch("https://api.tu-ia-narrativa.com/generar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer TU_API_KEY"
+      },
+      body: JSON.stringify(params)
+    });
+    const data = await response.json();
+    document.getElementById('guionNarrativo').innerText = data.guion;
+  } catch (error) {
+    alert("Error al conectar con IA externa. Verifica tu clave y conexión.");
+  }
+}
+
+// 📤 Exportar guion como archivo TXT
+function exportarGuion() {
+  const contenido = document

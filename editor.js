@@ -1,5 +1,6 @@
 function editarGuion() {
   const guionTexto = document.getElementById('guionNarrativo').innerText;
+
   if (!guionTexto.includes('📝 GUIÓN NARRATIVO AUTOMÁTICO')) {
     alert('Genera primero el guion narrativo antes de editar.');
     return;
@@ -25,9 +26,7 @@ function editarGuion() {
     `;
   });
 
-  editorHTML += `
-    <button onclick="guardarEdicion()">💾 Guardar cambios</button>
-  `;
+  editorHTML += `<button onclick="guardarEdicion()">💾 Guardar cambios</button>`;
 
   document.getElementById('editorGuion').innerHTML = editorHTML;
 }
@@ -37,7 +36,7 @@ function guardarEdicion() {
   let nuevoGuion = '📝 GUIÓN NARRATIVO AUTOMÁTICO\n\n';
 
   bloques.forEach(b => {
-    nuevoGuion += b.value + '\n\n';
+    nuevoGuion += b.value.trim() + '\n\n';
   });
 
   document.getElementById('guionNarrativo').innerText = nuevoGuion;
