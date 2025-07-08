@@ -3,18 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Video AI - Proyecto Kuiper</title>
+  <title>Video AI - Generador Narrativo</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2em; background: #111; color: #eee; max-width: 800px; margin: auto; }
-    h1 { color: #3cefff; }
-    .section { margin-bottom: 2em; }
-    textarea, input[type="text"] { width: 100%; padding: 1em; background: #222; border: 1px solid #555; color: #eee; border-radius: 5px; }
-    button { background: #3cefff; color: #111; padding: 0.8em 2em; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    .output { background: #222; padding: 1em; border-radius: 5px; margin-top: 1em; white-space: pre-wrap; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      max-width: 900px;
+      margin: auto;
+      padding: 2em;
+    }
+    h1 {
+      color: #3cefff;
+      font-size: 1.8em;
+    }
+    .section {
+      margin-bottom: 2em;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5em;
+    }
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 1em;
+      background: #222;
+      border: 1px solid #555;
+      color: #eee;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    input[type="file"] {
+      margin-top: 0.5em;
+      background: #222;
+      color: #eee;
+    }
+    button {
+      background: #3cefff;
+      color: #111;
+      padding: 0.8em 2em;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .output {
+      background: #222;
+      padding: 1em;
+      border-radius: 5px;
+      margin-top: 1em;
+      white-space: pre-wrap;
+    }
+    small {
+      color: #aaa;
+      font-size: 0.9em;
+    }
   </style>
 </head>
 <body>
-  <h1>🎬 Generador de Video IA: Proyecto Kuiper</h1>
+
+  <h1>🎬 Generador de Video AI: Edición Narrativa</h1>
 
   <div class="section">
     <label>🧠 ¿Cuál es el tema de tu video?</label>
@@ -22,39 +71,102 @@
   </div>
 
   <div class="section">
-    <label>🎨 ¿Qué estilo visual quieres?</label>
-    <input type="text" id="estilo" placeholder="Ej: Realista, Pixar, Anime, Abstracto..." />
+    <label>🎨 Estilo visual</label>
+    <select id="estilo">
+      <option value="Realista">Realista</option>
+      <option value="Anime">Anime</option>
+      <option value="Pixar">Pixar</option>
+      <option value="Disney">Disney</option>
+      <option value="Abstracto">Abstracto</option>
+      <option value="CGI">CGI</option>
+    </select>
   </div>
 
   <div class="section">
-    <label>⏱️ ¿Qué duración estimada tendrá?</label>
-    <input type="text" id="duracion" placeholder="Ej: 5 minutos" />
+    <label>🎙️ Narración</label>
+    <select id="narracion">
+      <option value="Voz en off + texto estático">Voz en off + texto estático</option>
+      <option value="Solo música de fondo">Solo música de fondo</option>
+      <option value="Narrador con acento">Narrador con acento</option>
+      <option value="Sin audio">Sin audio</option>
+    </select>
   </div>
 
   <div class="section">
-    <label>🎙️ ¿Quieres narración y texto en pantalla?</label>
-    <input type="text" id="narracion" placeholder="Ej: Sí, voz en off con subtítulos estáticos" />
+    <label>🌐 Idioma</label>
+    <select id="idioma">
+      <option value="Español neutro">Español neutro</option>
+      <option value="Inglés americano">Inglés americano</option>
+      <option value="Inglés británico">Inglés británico</option>
+      <option value="Portugués">Portugués</option>
+      <option value="Francés">Francés</option>
+    </select>
   </div>
 
-  <button onclick="generarPrompt()">✅ Preparar guion para revisión</button>
+  <div class="section">
+    <label>⏱️ Duración estimada</label>
+    <select id="duracion">
+      <option value="1 minuto">1 minuto</option>
+      <option value="3 minutos">3 minutos</option>
+      <option value="5 minutos">5 minutos</option>
+      <option value="10 minutos">10 minutos</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>🧠 Tono narrativo</label>
+    <select id="tono">
+      <option value="Divulgativo">Divulgativo</option>
+      <option value="Técnico">Técnico</option>
+      <option value="Poético">Poético</option>
+      <option value="Inspirador">Inspirador</option>
+      <option value="Educativo">Educativo</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label>📁 Archivos de referencia (opcional)</label>
+    <input type="file" id="archivoReferencia" multiple accept=".pdf,.doc,.docx,.txt,.md" />
+    <small>
+      Puedes subir documentos como referencia. Yo combinaré esta información con mis fuentes. Si hay contradicción, priorizaré la tuya o te consultaré primero.
+    </small>
+  </div>
+
+  <div class="section">
+    <button onclick="generarResumen()">✅ Preparar resumen del proyecto</button>
+  </div>
 
   <div id="resultado" class="output"></div>
 
   <script>
-    function generarPrompt() {
+    function generarResumen() {
       const tema = document.getElementById('tema').value;
       const estilo = document.getElementById('estilo').value;
-      const duracion = document.getElementById('duracion').value;
       const narracion = document.getElementById('narracion').value;
+      const idioma = document.getElementById('idioma').value;
+      const duracion = document.getElementById('duracion').value;
+      const tono = document.getElementById('tono').value;
+      const archivos = document.getElementById('archivoReferencia').files;
 
-      let salida = `🎬 Proyecto de video IA\n\n`;
-      salida += `🧠 Tema: ${tema}\n`;
-      salida += `🎨 Estilo visual: ${estilo}\n`;
-      salida += `⏱️ Duración estimada: ${duracion}\n`;
-      salida += `🎙️ Narración y texto: ${narracion}\n`;
-      salida += `📦 Preparando escenas y guion narrativo...`;
+      let resumen = `🎬 PROYECTO DE VIDEO IA\n\n`;
+      resumen += `🧠 Tema: ${tema}\n`;
+      resumen += `🎨 Estilo visual: ${estilo}\n`;
+      resumen += `🎙️ Narración: ${narracion}\n`;
+      resumen += `🌐 Idioma: ${idioma}\n`;
+      resumen += `⏱️ Duración estimada: ${duracion}\n`;
+      resumen += `🧠 Tono narrativo: ${tono}\n`;
 
-      document.getElementById('resultado').innerText = salida;
+      if (archivos.length > 0) {
+        resumen += `📁 Archivos adjuntos: ${archivos.length} archivo(s)\n`;
+        for (let i = 0; i < archivos.length; i++) {
+          resumen += `   - ${archivos[i].name}\n`;
+        }
+        resumen += `ℹ️ Tus archivos serán considerados como fuente complementaria.`;
+      } else {
+        resumen += `📁 No se adjuntaron archivos de referencia.`;
+      }
+
+      document.getElementById('resultado').innerText = resumen;
     }
   </script>
 </body>
